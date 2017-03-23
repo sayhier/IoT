@@ -45,6 +45,8 @@ def tcplink(sock, addr):
         conn.commit()
         conn.close()
 
+        
+
     sock.close()
     print('Connection from %s:%s closed.' % addr)
 
