@@ -20,32 +20,30 @@ def tcplink(sock, addr):
             break
         sock.send((data.decode('utf-8')).encode('utf-8'))
         data = data.decode('utf-8').split(',')
-        data1 = (data[0])
-        print(data1)
-        data2 = float(data[1])
-        print(data2)
-
         sendtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
-        print ('Time:', sendtime)
-        print('Received:', data)
 
-        senddata = (sendtime, data1, data2)
-        #conn = sqlite3.connect('customer-01.db')
-        #conn.execute('CREATE TABLE IF NOT EXISTS datasource (sendtime CHAR(19) PRIMARY KEY, data1 REAL, data2 REAL)')
-        #conn.execute("INSERT INTO datasource VALUES (?, ?, ?)", senddata)
-
+        print(data)
         conn = mysql.connector.connect(user='root', password='password', database='test13')
         cursor = conn.cursor()
+        try:
+            sensorID_1 = (data[0]); print(sensorID_1); data1 = (data[1]); print(data1)
+            sensorID_2 = (data[2]); print(sensorID_2); data2 = (data[3]); print(data2)
+            sensorID_3 = (data[4]); print(sensorID_3); data3 = (data[5]); print(data3)
+            sensorID_4 = (data[6]); print(sensorID_4); data4 = (data[7]); print(data4)
+            sensorID_5 = (data[8]); print(sensorID_5); data5 = (data[9]); print(data5)
+            cursor.execute('insert into datasource (sendtime, sensorID_1, data_1, sensorID_2, data_2, sensorID_3, data_3, sensorID_4, data_4, sensorID_5, data_5) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',[sendtime, sensorID_1, data1, sensorID_2, data2, sensorID_3, data3, sensorID_4, data4, sensorID_5, data5])
+        except:
+            sensorID_1 = ' '; data1 = 0.0
+            sensorID_2 = ' '; data2 = 0.0
+            sensorID_3 = ' '; data3 = 0.0
+            sensorID_4 = ' '; data4 = 0.0
+            sensorID_5 = ' '; data5 = 0.0
+            cursor.execute('insert into datasource (sendtime, sensorID_1, data_1, sensorID_2, data_2, sensorID_3, data_3, sensorID_4, data_4, sensorID_5, data_5) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',[sendtime, sensorID_1, data1, sensorID_2, data2, sensorID_3, data3, sensorID_4, data4, sensorID_5, data5])
+            print('************exception')
 
-        #cursor.execute("INSERT INTO datasource VALUES (?, ?, ?)", senddata)
-        #cursor.execute('insert into user (id, name) values (%s, %s)', ['1', 'Michael'])
-        #cursor.execute('insert into datasource (sendtime, sensorID_1, data_1) values (%s, %s, %s)', [sendtime, data1, data2])
-        cursor.execute('insert into datasource (sendtime, sensorID_1, data_1, sensorID_2, data_2, sensorID_3, data_3, sensorID_4, data_4, sensorID_5, data_5) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',[sendtime, data1, data2, data1, data2, data1, data2, data1, data2, data1, data2])
         conn.commit()
         conn.close()
-
-
 
     sock.close()
     print('Connection from %s:%s closed.' % addr)
