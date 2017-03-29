@@ -28,6 +28,8 @@ def iot_api():
     cursor = mysql.get_db().cursor(DictCursor)
     result = []
 
+    
+
     cursor.execute("select * from datasource "
                    "where sendtime<%s and sendtime>%s",
                    (end_time, start_time))

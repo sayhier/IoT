@@ -104,11 +104,11 @@ var Iot = {
                         data4.push(item.data4);
                         data5.push(item.data5);
                     });
-                    Iot.barTable('温度展示', "温度（ºC）", data1, sendTime, 'value', 'chart1');
-                    Iot.barTable('湿度展示', "湿度（%rh）", data2, sendTime, 'value', 'chart2');
-                    Iot.barTable('展示3', "单位3", data3, sendTime, 'value', 'chart3');
-                    Iot.barTable('展示4', "单位4", data4, sendTime, 'value', 'chart4');
-                    Iot.barTable('展示5', "单位5", data5, sendTime, 'value', 'chart5');
+                    Iot.barTable('实时曲线', "温度（ºC）", data1, sendTime, 'value', 'chart1');
+                    Iot.barTable('实时曲线', "亮度（%rh）", data2, sendTime, 'value', 'chart2');
+                    Iot.barTable('实时曲线', "湿度", data3, sendTime, 'value', 'chart3');
+                    Iot.barTable('实时曲线', "单位4", data4, sendTime, 'value', 'chart4');
+                    Iot.barTable('实时曲线', "单位5", data5, sendTime, 'value', 'chart5');
                 }
             }
         });

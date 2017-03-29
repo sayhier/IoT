@@ -10,18 +10,18 @@ print(s.recv(1024).decode('utf-8'))
 
 i = 0
 while True:
-    raw1 = str(round(random.uniform(1, 2),2))
+    raw1 = str(round(random.uniform(1, 50),2))
     raw2 = str(round(random.uniform(1, 50), 2))
     sensorID = b'Temperature'
-    senddata = sensorID + b',' + raw2.encode()
+    senddata = sensorID + b',' + raw1.encode() + b',' + sensorID + b',' + raw2.encode() + b',' + sensorID + b',' + raw2.encode() + b',' + sensorID + b',' + raw2.encode() + b',' + sensorID + b',' + raw2.encode()
     print('Sent:',senddata.decode())
 
     s.send(senddata)
     print('Received:', s.recv(1024).decode('utf-8'))
 
-    time.sleep(1)
+    time.sleep(10)
     i = i+1
-    if i>1000:
+    if i > 1000:
         break
 
 # stop the new thread in server

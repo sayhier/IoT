@@ -22,16 +22,16 @@ def tcplink(sock, addr):
         data = data.decode('utf-8').split(',')
         sendtime = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
 
-
+        print('Received data string:')
         print(data)
         conn = mysql.connector.connect(user='root', password='password', database='test13')
         cursor = conn.cursor()
         try:
-            sensorID_1 = (data[0]); print(sensorID_1); data1 = (data[1]); print(data1)
-            sensorID_2 = (data[2]); print(sensorID_2); data2 = (data[3]); print(data2)
-            sensorID_3 = (data[4]); print(sensorID_3); data3 = (data[5]); print(data3)
-            sensorID_4 = (data[6]); print(sensorID_4); data4 = (data[7]); print(data4)
-            sensorID_5 = (data[8]); print(sensorID_5); data5 = (data[9]); print(data5)
+            sensorID_1 = (data[0]); data1 = (data[1])
+            sensorID_2 = (data[2]); data2 = (data[3])
+            sensorID_3 = (data[4]); data3 = (data[5])
+            sensorID_4 = (data[6]); data4 = (data[7]);
+            sensorID_5 = (data[8]); data5 = (data[9]);
             cursor.execute('insert into datasource (sendtime, sensorID_1, data_1, sensorID_2, data_2, sensorID_3, data_3, sensorID_4, data_4, sensorID_5, data_5) values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',[sendtime, sensorID_1, data1, sensorID_2, data2, sensorID_3, data3, sensorID_4, data4, sensorID_5, data5])
         except:
             sensorID_1 = ' '; data1 = 0.0
@@ -44,6 +44,8 @@ def tcplink(sock, addr):
 
         conn.commit()
         conn.close()
+
+        break
 
     sock.close()
     print('Connection from %s:%s closed.' % addr)
